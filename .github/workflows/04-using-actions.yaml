@@ -15,5 +15,5 @@ jobs:
             
             - name: Install Dependencies
               run: |
-                cd 04-using-acitons
+                cd 04-using-acitons/react-app
                 npm ci
