@@ -1,9 +1,12 @@
 name: 04 - Using Actions
-on: push
+on: workflow_dispatch
 
 jobs:
     buiild:
         runs-on: ubuntu-latest
+        defaults:
+            run:
+                working-directory: 04-using-acitons/react-app
         steps:
             - name: Checkout Code
               uses: actions/checkout@v4
@@ -15,4 +18,6 @@ jobs:
             
             - name: Install Dependencies
               run: npm ci
-              working-directory: 04-using-acitons/react-app
+            
+            - name: Run unit tests
+              run: npm run test
