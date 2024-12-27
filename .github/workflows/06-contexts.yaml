@@ -1,41 +1,43 @@
 name: 06 - Contexts
 on: 
-    push:
-    workflow_dispatch:
-        inputs:
-            debug:
-                type: boolean
-                default: false
-run-name:  06 - Contexts | DEBUG - ${{ inputs.debug }}
+  push:
+  workflow_dispatch:
+    inputs:
+      debug:
+        type: boolean
+        default: false
+
+run-name: 06 - Contexts | DEBUG - ${{ inputs.debug }}
 
 env:
-    MY_WORKFLOW_VAR='workflow'
-    MY_OVERWRITTEN_VAR='workflow'
+  MY_WORKFLOW_VAR: workflow
+  MY_OVERWRITTEN_VAR: workflow
 
 jobs:
-    echo-data:
-        env:
-            MY_JOB_VAR='job'
-            MY_OVERWRITTEN_VAR='job'
+  echo-data:
+    env:
+      MY_JOB_VAR: job
+      MY_OVERWRITTEN_VAR: job
 
-        runs-on: ubuntu-latest
-        steps:
-            - name: Display
-              run: |
-                echo "Event name: ${{ github.event_name }}"
-                echo "Ref: ${{ github.ref }}"
-                echo "SHA: ${{ github.sha }}"
-                echo "actor: ${{ github.actor }}"
-                echo "workflow: ${{ github.workflow }}"
-                echo "Run ID: ${{ github.run_id }}"
-                echo "Run number: ${{ github.run_number }}"
-            
-            - name: Retrieve Variable
-              run: |
-                echo "${{ vars.MY_VAR }}"
-            
-            - name: Print Env Varaibles
-              run: |
-                MY_OVERWRITTEN_VAR='step'
-                echo "Workflow env:  $MY_WORKFLOW_VAR "
-                echo "Overwritten env:  $MY_OVERWRITTEN_VAR "
+    runs-on: ubuntu-latest
+    steps:
+      - name: Display
+        run: |
+          echo "Event name: ${{ github.event_name }}"
+          echo "Ref: ${{ github.ref }}"
+          echo "SHA: ${{ github.sha }}"
+          echo "actor: ${{ github.actor }}"
+          echo "workflow: ${{ github.workflow }}"
+          echo "Run ID: ${{ github.run_id }}"
+          echo "Run number: ${{ github.run_number }}"
+      
+      - name: Retrieve Variable
+        run: |
+          echo "${{ vars.MY_VAR }}"
+
+          
+      - name: Print Env Variables
+        run: |
+          MY_OVERWRITTEN_VAR='step'
+          echo "Workflow env: $MY_WORKFLOW_VAR"
+          echo "Overwritten env: $MY_OVERWRITTEN_VAR"
