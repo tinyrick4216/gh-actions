@@ -1,6 +1,5 @@
 name: 06 - Contexts
 on: 
-  push:
   workflow_dispatch:
     inputs:
       debug:
@@ -33,7 +32,8 @@ jobs:
       
       - name: Retrieve Variable
         run: |
-          echo "${{ vars.MY_VAR }}"
+          : # "${{ vars.MY_VAR }}" 
+          echo 'Something'
 
           
       - name: Print Env Variables
