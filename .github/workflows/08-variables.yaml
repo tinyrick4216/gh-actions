@@ -1,0 +1,38 @@
+name: 08 - Using Variables
+on:
+    push:
+    workflow_dispatch:
+        inputs:
+            debug:
+                type: boolean
+                default: false
+
+env:
+    WORKFLOW_VAR: 'I am a workflow env var'
+    OVERWRITTEN: 'I will be overwritten'
+
+jobs:
+    echo:
+        runs-on: ubuntu-latest
+        env:
+            JOB_VAR: 'I am job env var'
+            OVERWRITTEN: 'I have been overwritten at the job level'
+
+        steps:
+            - name: "[Debug] Print Start-up Data"
+              env:
+                  STEP_VAR: 'I am a step env var'
+                  STEP_VAR2: 'I am another step var'
+              run: |
+                  echo "Step env var: $STEP_VAR"
+                  echo "Step env var 2: $STEP_VAR2"
+                  echo "Job env var: $JOB_VAR"
+                  echo "Workflow env var: $WORKFLOW_VAR"
+                  echo "Overwritten: $OVERWRITTEN"
+            
+            - name: "[debug] Print when triggered from main"
+              if: inputs.debug && github.ref == 'refs/heads/main'
+              run: echo "I was triggered from main"
+
+            - name: Greeting
+              run: echo "Hello World"
