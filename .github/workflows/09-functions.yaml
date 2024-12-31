@@ -1,24 +1,23 @@
 name: 09 - Using Functions
 on:
-  pull_request:
   workflow_dispatch:
 
 jobs:
   echo1:
     runs-on: ubuntu-latest
     steps:
-      - name: Print PR title
-        run: echo The Title of your PR is ${{ github.event.pull_request.title }}
+      # - name: Print PR title
+      #   run: echo The Title of your PR is ${{ github.event.pull_request.title }}
 
-      - name: Print PR labels
-        run: |
-          cat << EOF
-          ${{ toJSON(github.event.pull_request.labels) }}
-          EOF
+      # - name: Print PR labels
+      #   run: |
+      #     cat << EOF
+      #     ${{ toJSON(github.event.pull_request.labels) }}
+      #     EOF
       
-      - name: Bug step
-        if: ${{ failure() &&  contains('fix' ,github.event.pull_request.title) }}
-        run: echo "I am a bug fix".
+      # - name: Bug step
+      #   if: ${{!cancelled() &&  contains(github.event.pull_request.title, 'fix' ) }}
+      #   run: echo "I am a bug fix".
 
       - name: Failing step
         run: |
